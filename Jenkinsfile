@@ -1,21 +1,31 @@
 pipeline{
+	//agent 表示要执行的节点，any表示任意节点
   agent any
   tools {
     nodejs 'NodeJS_16.15.0'
   }
+	 //stage就表示一个步骤，括号里是步骤名称
   stages{
+		stage("环境检查"){
+      steps {
+				sh label: '',
+				script: '''
+					node -v
+					pnpm -v
+					git version
+					pwd
+				'''
+      }
+    }
     stage("pull"){
       steps {
-				sh 'node -v'
-        sh 'sudo rm -rf public'
-        sh 'sudo rm -rf logs'
         git branch: 'master', credentialsId: '4f3803e0-ab8d-416c-9850-5b3800128697', url: 'git@github.com:dyyanewade/vue-h5-template.git'
       }
     }
     stage("project build"){
       steps {
-        sh 'npm install'
-        sh 'npm run build'
+        sh 'pnpm install'
+        sh 'pnpm run build'
         sh 'sudo rm -rf node_modules'
       }
     }

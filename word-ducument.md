@@ -17,3 +17,148 @@
 - vite-plugin-svg-icons（加载 SVG 文件，自动引入）
 
 # "vite-plugin-imagemin": "^0.6.1" 下载有问题
+
+
+pipeline {
+
+    //agent 表示要执行的节点，any表示任意节点
+
+   agent any
+
+   //stages表示任务执行时的所有步骤集合
+
+   stages {
+
+         //stage就表示一个步骤，括号里是步骤名称
+
+         stage('拉取项目源码'){
+
+               //每一个stage都可以定义自己执行的节点，如果没定义，则用最上方的
+
+     agent {
+
+                // label 后跟的是节点的标签名称
+
+                label 'mall-server'
+
+       }
+
+            steps {
+
+                echo '这是拉取代码这一步'
+
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL} ${env.JOB_NAME}"
+
+                echo "${currentBuild.result} sdsdd"
+
+                sh 'pwd'
+
+                //如果当前节点是windows，我想执行windows下的命令
+
+                //bat 'dir'
+
+             }
+
+
+
+         }
+
+
+
+        stage('静态代码扫描'){
+
+            steps {
+
+                echo '这是静态代码扫描'
+
+            }
+
+
+
+
+
+        }
+
+
+
+        stage('单元测试'){
+
+            steps {
+
+                echo '执行jacoco单元测试'
+
+            }
+
+        }
+
+
+
+        stage('打包依赖服务'){
+
+            steps {
+
+                echo '打包依赖服务'
+
+            }
+
+        }
+
+
+
+        stage('打包当前服务'){
+
+            steps {
+
+                echo '打包当前服务'
+
+            }
+
+        }
+
+
+
+        stage('部署环境'){
+
+            steps {
+
+                echo '部署环境'
+
+            }
+
+        }
+
+
+
+        stage('接口自动化测试'){
+
+            agent {
+
+                label 'auto_test'
+
+
+
+            }
+
+            steps {
+
+                echo '接口自动化测试'
+
+            }
+
+        }
+
+        stage('ui自动化'){
+
+            steps {
+
+                echo 'ui自动化'
+
+            }
+
+
+
+        }
+
+    }
+
+}
