@@ -29,9 +29,19 @@ pipeline{
         sh 'sudo rm -rf node_modules'
       }
     }
-    stage("docker build"){
+    stage("Deploy"){
       steps {
-        sh 'docker build -t xxx:v${BUILD_NUMBER} . '
+        script{
+					def remote = [:]
+					remote.name = 'feService'
+					remote.host = '1.14.70.116'
+					remote.user = 'root'
+					remote.password = 'fate190.'
+					remote.allowAnyHosts = true
+					stage('Remote SSH') {
+            sshScript remote: remote, script: "deploy.sh"
+          }
+				}
       }
     }
     stage("docker run"){
@@ -39,6 +49,21 @@ pipeline{
         sh 'docker stop $(docker ps -a -q)'
         sh 'docker run -p 80:80 --name xxx_v${BUILD_NUMBER} -d xxx:v${BUILD_NUMBER}'
       }
+    }
+  }
+	post {
+    always {
+      echo 'This will always run'
+      wrap([$class: 'BuildUser']) {
+        sh 'echo "${BUILD_USER}"'
+        sh """curl 'https://oapi.dingtalk.com/robot/send?access_token=3dfb***9ece'  -H 'Content-Type: application/json' -d '{"msgtype":"text","text":{"content": "Jenkins提醒。部署服务：${JOB_NAME} \n构建分支: ${BRANCH_NAME}\n构建ID: ${BUILD_ID}\n提交信息：${commit}构建状态：${currentBuild.currentResult}"}}'"""
+      }
+    }
+    success {
+      echo 'successful'
+    }
+    failure {
+      echo 'failed'
     }
   }
 }
