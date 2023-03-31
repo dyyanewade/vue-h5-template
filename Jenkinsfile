@@ -56,7 +56,7 @@ pipeline{
       echo 'This will always run'
       wrap([$class: 'BuildUser']) {
         sh 'echo "${BUILD_USER}"'
-        sh """curl 'https://oapi.dingtalk.com/robot/send?access_token=3dfb***9ece'  -H 'Content-Type: application/json' -d '{"msgtype":"text","text":{"content": "Jenkins提醒。部署服务：${JOB_NAME} \n构建分支: ${BRANCH_NAME}\n构建ID: ${BUILD_ID}\n提交信息：${commit}构建状态：${currentBuild.currentResult}"}}'"""
+        sh """curl 'https://oapi.dingtalk.com/robot/send?access_token=c0f9bc9ae48635ed88f7b8f7ab69d987539d869f79475443fe8fb8f93dcda16a'  -H 'Content-Type: application/json' -d '{"msgtype":"text","text":{"content": "Jenkins提醒。部署服务：${JOB_NAME} \n构建分支: ${BRANCH_NAME}\n构建ID: ${BUILD_ID}\n提交信息：${commit}构建状态：${currentBuild.currentResult}"}}'"""
       }
     }
     success {
