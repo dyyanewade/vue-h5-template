@@ -1,0 +1,55 @@
+{
+	/** 项目选项 */
+	"compilerOptions": {
+		"target": "ESNext", // 指定ts编译成ES的版本。
+		"module": "ESNext", // 指定编译后代码使用的模块化规范。
+		"jsx": "preserve", // 指定JSX代码生成用于的开发环境。
+		"isolatedModules": true, // 是否将每个文件转换为单独的模块，默认：false。
+		"lib": ["ESNext", "DOM"], // 指定项目运行时使用的库。
+		"noEmit": true, // 不生成编译后的文件，默认：false。
+		"sourceMap": true, // 是否生成相应的Map映射的文件，默认：false。
+		"allowJs": true, //是否对js文件进行编译，默认：false。
+
+		/** 严格检查选项 */
+		"strict": true, // 开启所有严格的类型检查
+		"noImplicitAny": true, // 不允许隐式的any类型
+		"strictFunctionTypes": false, // 不允许函数参数双向协变
+
+		/** 附加检查 */
+		"noUnusedLocals": true, // 是否检查未使用的局部变量，默认：false。
+		"noUnusedParameters": true, // 是否检查未使用的参数，默认：false。
+
+		/** 高级选项 */
+		"noLib": false, // 是否禁止自动包含任何库文件
+		"resolveJsonModule": true, // //是否解析 JSON 模块
+		"moduleResolution": "Node", // 指定模块解析策略，node或classic
+		"forceConsistentCasingInFileNames": true, // 是否区分文件系统大小写规则
+		"skipLibCheck": true, // 是否跳过声明文件的类型检查，这可以在编译期间以牺牲类型系统准确性为代价来节省时间，默认：false。
+		"extendedDiagnostics": false, //是否查看 TS 在编译时花费的时间
+
+		/** 模块解析选项 */
+		"baseUrl": ".", // 用于解析非绝对模块名的基本目录，相对模块不受影响。
+		"allowSyntheticDefaultImports": true, // 允许从没有设置默认导出的模块中默认导入
+		"esModuleInterop": true, // 是否通过为所有导入模块创建命名空间对象，允许CommonJS和ES模块之间的互操作性，开启改选项时，也自动开启allowSyntheticDefaultImports选项，默认：false。
+		"types": ["vite/client"], // 用来指定需要包含的模块，并将其包含在全局范围内。
+		"paths": {
+			// 用于设置模块名称基于baseUrl的路径映射关系。
+			"~/*": ["./*"],
+			"@/*": ["./src/*"],
+			"#/*": ["src/types/*"]
+		}
+	},
+
+	/** 根选项 */
+	"include": [
+		// 指定被编译文件所在的目录。
+		"src/**/*.ts",
+		"src/**/*.d.ts",
+		"src/**/*.tsx",
+		"src/**/*.vue",
+		"types/**/*.d.ts",
+		"types/**/*.ts",
+		"vite.config.ts"
+	],
+	"exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"] // 指定不需要被编译的目录。
+}

@@ -1,0 +1,10 @@
+@import './transition.css';
+@import './reset.css';
+/* @import './scrollbar.css'; */
+
+html,
+body,
+#app {
+  width: 100vw;
+  height: 100vh;
+}

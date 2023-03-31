@@ -1,0 +1,158 @@
+/**
+ *  宽高
+ *  @param {String} w
+ *  @param {String} h
+ */
+@mixin w-h($w: auto, $h: auto) {
+  @if $w != auto {
+    width: #{$w}px;
+  } @else {
+    width: auto;
+  }
+  @if $h != auto {
+    height: #{$h}px;
+  } @else {
+    height: auto;
+  }
+}
+
+/**
+ * @description: 页面基础设置，是否允许页面滑动，页面背景颜色设置
+ * @param {String} isSlide 是否允许页面上下滑动
+ * @param {String} isBg 页面背景颜色
+ * @author: dyyanewade
+ */
+@mixin page-common-set($isSlide: 1, $isBg: $sysBgGray) {
+  width: 100%;
+  background-color: $isBg;
+  padding: 20px;
+  height: 100%;
+  @if $isSlide == 1 {
+    overflow: hidden;
+  } @else {
+    overflow: auto;
+  }
+}
+
+/**
+ *  字体
+ *  @param {String} s 字体大小
+ *  @param {String} c 颜色
+ *  @param {String} l 行高
+ *  @param {String} f 字体粗细
+ */
+@mixin font($s: 24, $c: #444, $l: 24, $f: 400) {
+  font-size: #{$s}px;
+  color: #{$c};
+  line-height: #{$l}px;
+  font-weight: #{$f};
+  font-family: PingFangSC-Regular, PingFang SC;
+}
+
+/**
+ *  flex布局
+ *  @param {String} d 设置主轴的方向
+ *  @param {String} j 设置主轴上的子元素排列方式
+ *  @param {String} a 设置侧轴上的子元素的排列方式(单行)
+ */
+
+$flex-params: (
+  x: row,
+  y: column,
+  start: flex-start,
+  center: center,
+  around: space-around,
+  between: space-between
+);
+
+@mixin flex($coor: null, $justify: null, $alignItems: null) {
+  display: flex;
+  @if $coor {
+    flex-direction: map-get($flex-params, $coor);
+  }
+  @if $justify {
+    justify-content: map-get($flex-params, $justify);
+  }
+  @if $alignItems {
+    align-items: map-get($flex-params, $alignItems);
+  }
+}
+
+/**
+* 溢出省略号
+* @param {Number} 行数
+*/
+@mixin ellipsis($rowCount: 1) {
+  @if $rowCount <=1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $rowCount;
+    -webkit-box-orient: vertical;
+  }
+}
+
+// 清楚浮动
+@mixin clearfix {
+  zoom: 1;
+  &:before,
+  &:after {
+    content: '\\0020';
+    display: block;
+    height: 0;
+    overflow: hidden;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+/**
+*	css图片解决方案
+* 使用 @include main-lang-bg(302px, 82px, '/@/assets/button', 'confirm.png');
+*/
+@mixin main-lang-bg($width, $height, $preUrl, $posUrl) {
+  width: #{$width}px;
+  height: #{$height}px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  @include loop-lang-bg($preUrl, $posUrl);
+}
+// 背景图多语言
+@mixin loop-lang-bg($preUrl, $posUrl) {
+  $list: zh-cn, en-us;
+  @each $i in $list {
+    &.#{$i} {
+      background-image: url('#{$preUrl}/#{$i}/#{$posUrl}');
+    }
+  }
+}
+
+/**
+ * @description: 滚动条设置
+ * @return {*}
+ * @author: dyyanewade
+ */
+@mixin scrollbar($size: 8px, $color: #d9d9d9) {
+  &::-webkit-scrollbar-thumb {
+    background-color: $color;
+    border-radius: $size;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: $size;
+    border-radius: $size;
+  }
+  &::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+  }
+  &::-webkit-scrollbar-track-piece {
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 0;
+  }
+}
