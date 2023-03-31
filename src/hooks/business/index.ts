@@ -1,4 +1,5 @@
 import useCountDown from './useCountDown';
-import useSmsCode from './useSmsCode';
+// import useSmsCode from './useSmsCode';
 
-export { useCountDown, useSmsCode };
+// export { useCountDown, useSmsCode };
+export { useCountDown };

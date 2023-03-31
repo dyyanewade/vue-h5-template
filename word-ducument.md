@@ -15,3 +15,5 @@
 - vite-plugin-restart（监听配置文件修改自动重启 Vite）
 - vite-plugin-style-import（按需引入样式文件）
 - vite-plugin-svg-icons（加载 SVG 文件，自动引入）
+
+# "vite-plugin-imagemin": "^0.6.1" 下载有问题

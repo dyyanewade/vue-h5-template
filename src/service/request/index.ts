@@ -5,15 +5,15 @@ import axios, {
   InternalAxiosRequestConfig,
   AxiosResponse
 } from 'axios';
-import { useRouter } from 'vue-router';
+// import { useRouter } from 'vue-router';
 import { showFailToast } from 'vant';
 import { useLoading } from '@/hooks/common/useLoading';
 import { ResultEnum, ContentTypeEnum } from '@/enums/httpEnum';
-import { useUserInfo } from '@/store/modules/userInfo';
+// import { useUserInfo } from '@/store/modules/userInfo';
 import { checkInfoCode, handleNetworkError } from './tools';
 
 const { startLoading, stopLoading } = useLoading();
-const router = useRouter();
+// const router = useRouter();nprogress
 
 // 默认 axios 实例请求配置
 const config = {
@@ -29,7 +29,7 @@ class RequestHttp {
   public constructor(config: AxiosRequestConfig) {
     // 实例化axios
     this.service = axios.create(config);
-    const useUserInfoStore = useUserInfo();
+    // const useUserInfoStore = useUserInfo();
 
     /**
      * @description 请求拦截器

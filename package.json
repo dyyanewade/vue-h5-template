@@ -64,7 +64,6 @@
     "vite": "^4.2.1",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-eruda": "^1.0.1",
-    "vite-plugin-imagemin": "^0.6.1",
     "vite-plugin-mock": "^2.9.6",
     "vite-plugin-pages": "^0.29.0",
     "vite-plugin-progress": "^0.0.6",

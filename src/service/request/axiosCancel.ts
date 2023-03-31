@@ -1,14 +1,15 @@
 // ? 暂时没使用取消请求，目前全局 loading 已经能控制重复请求了
 import axios, { AxiosRequestConfig, Canceler } from 'axios';
-import { isFunction } from '@/utils/is/index';
-import qs from 'qs';
+// import { isFunction } from '@/utils/index';
+// import qs from 'qs';
 
 // * 声明一个 Map 用于存储每个请求的标识 和 取消函数
 let pendingMap = new Map<string, Canceler>();
 
 // * 序列化参数
 export const getPendingUrl = (config: AxiosRequestConfig) =>
-  [config.method, config.url, qs.stringify(config.data), qs.stringify(config.params)].join('&');
+  // [config.method, config.url, qs.stringify(config.data), qs.stringify(config.params)].join('&');
+  [config.method, config.url].join('&');
 
 export class AxiosCanceler {
   /**
@@ -50,7 +51,8 @@ export class AxiosCanceler {
    */
   removeAllPending() {
     pendingMap.forEach((cancel) => {
-      cancel && isFunction(cancel) && cancel();
+      // cancel && isFunction(cancel) && cancel();
+      cancel && cancel();
     });
     pendingMap.clear();
   }
