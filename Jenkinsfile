@@ -6,6 +6,7 @@ pipeline{
   stages{
     stage("pull"){
       steps {
+				sh 'node -v'
         sh 'sudo rm -rf public'
         sh 'sudo rm -rf logs'
         git branch: 'master', credentialsId: '4f3803e0-ab8d-416c-9850-5b3800128697', url: 'git@github.com:dyyanewade/vue-h5-template.git'
